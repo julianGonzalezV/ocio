@@ -156,8 +156,8 @@ class LoginPage extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: <Color>[
-          Color.fromRGBO(255, 80, 80, 9.0),
-          Color.fromRGBO(180, 70, 300, 9.0),
+          Color.fromRGBO(205, 102, 200, 2.0),
+          Color.fromRGBO(220, 100, 200, 8.0),
         ]),
       ),
     );
