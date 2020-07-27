@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocio/src/pages/create_client.dart';
 import 'package:ocio/src/pages/create_user.dart';
 import 'package:ocio/src/pages/home_page.dart';
 import 'package:ocio/src/pages/login_page.dart';
@@ -9,5 +10,6 @@ Map<String, WidgetBuilder> appRoutes() {
     'home': (BuildContext context) => HomePage(),
     'login': (BuildContext context) => LoginPage(),
     'createUser': (BuildContext context) => CreateUserPage(),
+    'createClient': (BuildContext context) => CreateClientPage(),
   };
 }
