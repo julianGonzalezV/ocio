@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ocio/src/model/client.dart';
+import 'package:ocio/src/model/contact.dart';
 
 class CreateClientPage extends StatefulWidget {
   @override
@@ -7,16 +9,20 @@ class CreateClientPage extends StatefulWidget {
 
 class CreateClientState extends State<CreateClientPage> {
   String _idNumber = '';
-  String _names = '';
-  String _lastNames = '';
+  String _gender = '';
+  String _name1 = '';
+  String _name2 = '';
+  String _lastName1 = '';
+  String _lastName2 = '';
   String _address = '';
   String _birthdate = DateTime.now().toString();
-  String _celphone = '';
+  String _cellphone = '';
   String _email = '';
 
   String _password = '';
 
-  List<String> _listaItems = ['C', 'P', 'E'];
+  List<String> _idTypeList = ['C', 'P', 'E'];
+  List<String> _genderList = ['', 'F', 'M'];
   String _idType = 'C';
 
   TextEditingController _inputFechaCtr = new TextEditingController();
@@ -87,33 +93,30 @@ class CreateClientState extends State<CreateClientPage> {
     );
   }
 
-  List<DropdownMenuItem<String>> getListado() {
-    List<DropdownMenuItem<String>> l1 = new List();
-    _listaItems.forEach((e) {
-      l1.add(DropdownMenuItem(
+  List<DropdownMenuItem<String>> getListado(List<String> list) {
+    List<DropdownMenuItem<String>> resultList = new List();
+    list.forEach((e) {
+      resultList.add(DropdownMenuItem(
         value: e,
         child: Text(e),
       ));
     });
-    return l1;
+    return resultList;
   }
 
-  Widget _dropDownInput() {
+  Widget _dropDownInput(String inputText, List<String> inputL,
+      String inputValue, ValueChanged<String> onChangedF) {
     return Row(
       children: <Widget>[
-        Text('Tipo identificacion'),
+        Text(inputText),
         SizedBox(
           width: 20.0,
         ),
         Expanded(
           child: DropdownButton(
-            value: _idType,
-            items: getListado(),
-            onChanged: (value) {
-              setState(() {
-                _idType = value;
-              });
-            },
+            value: inputValue,
+            items: getListado(inputL),
+            onChanged: onChangedF,
           ),
         ),
       ],
@@ -151,7 +154,18 @@ class CreateClientState extends State<CreateClientPage> {
       color: Colors.deepPurple,
       textColor: Colors.white,
       onPressed: () {
-        Navigator.pop(context, 'home');
+        Client client = Client(
+            _idType,
+            _idNumber,
+            _gender,
+            _name1,
+            _name2,
+            _lastName1,
+            _lastName2,
+            _birthdate,
+            Contact(_address, _cellphone, _email));
+        print('Cliente str ${client.toString()}');
+        // Navigator.pop(context, 'home');
       },
     );
   }
@@ -160,12 +174,22 @@ class CreateClientState extends State<CreateClientPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro'),
+        title: Text('Registro (Te lo preguntaremos solo una vez)'),
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 18.0),
         children: <Widget>[
-          _dropDownInput(),
+          _dropDownInput('Género', _genderList, _gender, (value) {
+            setState(() {
+              _gender = value;
+            });
+          }),
+          Divider(),
+          _dropDownInput('Tipo Identificación', _idTypeList, _idType, (value) {
+            setState(() {
+              _idType = value;
+            });
+          }),
           Divider(),
           _input('No Identificación', 'No Identificación', (value) {
             setState(() {
@@ -173,15 +197,27 @@ class CreateClientState extends State<CreateClientPage> {
             });
           }),
           Divider(),
-          _input('Nombres', 'Nombres', (value) {
+          _input('Primer nombre', 'Primer nombre', (value) {
             setState(() {
-              _names = value;
+              _name1 = value;
             });
           }),
           Divider(),
-          _input('Apellidos', 'Apellidos', (value) {
+          _input('Segundo nombre', 'Segundo nombre', (value) {
             setState(() {
-              _lastNames = value;
+              _name2 = value;
+            });
+          }),
+          Divider(),
+          _input('Primer apellido', 'Primer apellido', (value) {
+            setState(() {
+              _lastName1 = value;
+            });
+          }),
+          Divider(),
+          _input('Segundo apellido', 'Segundo Apellido', (value) {
+            setState(() {
+              _lastName2 = value;
             });
           }),
           Divider(),
@@ -191,13 +227,13 @@ class CreateClientState extends State<CreateClientPage> {
           Divider(),
           _input('celular', 'Número celular', (value) {
             setState(() {
-              _celphone = value;
+              _cellphone = value;
             });
           }),
           Divider(),
           _input('direccion', 'Dirección', (value) {
             setState(() {
-              _celphone = value;
+              _address = value;
             });
           }),
           Divider(),
