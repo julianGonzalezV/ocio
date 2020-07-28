@@ -6,32 +6,32 @@ class CreateClientPage extends StatefulWidget {
 }
 
 class CreateClientState extends State<CreateClientPage> {
-  String _name = '';
+  String _idNumber = '';
+  String _names = '';
+  String _lastNames = '';
+  String _address = '';
+  String _birthdate = '';
+  String _celphone = '';
   String _email = '';
+
   String _password = '';
-  String _date = '';
-  List<String> _listaItems = ['op1', 'op2', 'op3', 'op4'];
-  String _opSelec = 'op1';
+
+  List<String> _listaItems = ['C', 'P', 'E'];
+  String _idType = 'C';
 
   TextEditingController _inputFechaCtr = new TextEditingController();
 
-  Widget _input() {
+  Widget _input(
+      String hintText, String labelText, ValueChanged<String> onChangedF) {
     return TextField(
       //autofocus: true, para que aparezca el teclado de una
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-          counter: Text('Cantidad de letras ${_name.length}'),
-          hintText: 'nombre',
-          labelText: 'Nombre',
-          helperText: 'Ingrese su nombre',
-          suffixIcon: Icon(Icons.accessibility),
-          icon: Icon(Icons.account_circle)),
-      onChanged: (value) {
-        setState(() {
-          _name = value;
-        });
-      },
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: hintText,
+        labelText: labelText,
+      ),
+      onChanged: onChangedF,
     );
   }
 
@@ -39,12 +39,11 @@ class CreateClientState extends State<CreateClientPage> {
     return TextField(
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-          hintText: 'Email',
-          labelText: 'Email',
-          helperText: 'Ingrese su email',
-          suffixIcon: Icon(Icons.alternate_email),
-          icon: Icon(Icons.email)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: 'Email',
+        labelText: 'Email',
+        suffixIcon: Icon(Icons.email),
+      ),
       onChanged: (value) {
         setState(() {
           _email = value;
@@ -57,12 +56,11 @@ class CreateClientState extends State<CreateClientPage> {
     return TextField(
       obscureText: true,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-          hintText: 'Password',
-          labelText: 'Password',
-          helperText: 'Ingrese su password',
-          suffixIcon: Icon(Icons.lock_open),
-          icon: Icon(Icons.lock)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: 'Password',
+        labelText: 'Password',
+        suffixIcon: Icon(Icons.lock_open),
+      ),
       onChanged: (value) {
         setState(() {
           _password = value;
@@ -76,12 +74,11 @@ class CreateClientState extends State<CreateClientPage> {
       controller: _inputFechaCtr,
       enableInteractiveSelection: false,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-          hintText: 'Fecha',
-          labelText: 'Fecha',
-          helperText: 'Seleccione una fecha',
-          suffixIcon: Icon(Icons.calendar_today),
-          icon: Icon(Icons.calendar_view_day)),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+        hintText: 'Fecha',
+        labelText: 'Fecha de Nacimiento',
+        suffixIcon: Icon(Icons.calendar_today),
+      ),
       onTap: () {
         FocusScope.of(context).requestFocus(new FocusScopeNode());
         _dateSelect(context);
@@ -103,17 +100,17 @@ class CreateClientState extends State<CreateClientPage> {
   Widget _dropDownInput() {
     return Row(
       children: <Widget>[
-        Icon(Icons.select_all),
+        Text('Tipo identificacion'),
         SizedBox(
-          width: 30.0,
+          width: 20.0,
         ),
         Expanded(
           child: DropdownButton(
-            value: _opSelec,
+            value: _idType,
             items: getListado(),
             onChanged: (value) {
               setState(() {
-                _opSelec = value;
+                _idType = value;
               });
             },
           ),
@@ -132,16 +129,24 @@ class CreateClientState extends State<CreateClientPage> {
     );
     if (seleccion != null) {
       setState(() {
-        _date = seleccion.toString();
-        _inputFechaCtr.text = _date;
+        _birthdate = seleccion.toString();
+        _inputFechaCtr.text = _birthdate;
       });
     }
   }
 
   Widget _createClient() {
-    return ListTile(
-      title: Text('Nombre es: $_name'),
-      trailing: Text(_opSelec),
+    return RaisedButton(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 10.0),
+        child: Text('Registrar'),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      color: Colors.deepPurple,
+      textColor: Colors.white,
+      onPressed: () {},
     );
   }
 
@@ -154,15 +159,41 @@ class CreateClientState extends State<CreateClientPage> {
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 18.0),
         children: <Widget>[
-          _input(),
+          _dropDownInput(),
           Divider(),
-          _emailInput(),
+          _input('No Identificación', 'No Identificación', (value) {
+            setState(() {
+              _idNumber = value;
+            });
+          }),
           Divider(),
-          _passwordInput(),
+          _input('Nombres', 'Nombres', (value) {
+            setState(() {
+              _names = value;
+            });
+          }),
+          Divider(),
+          _input('Apellidos', 'Apellidos', (value) {
+            setState(() {
+              _lastNames = value;
+            });
+          }),
           Divider(),
           _fechaInput(context),
           Divider(),
-          _dropDownInput(),
+          _emailInput(),
+          Divider(),
+          _input('celular', 'Número celular', (value) {
+            setState(() {
+              _celphone = value;
+            });
+          }),
+          Divider(),
+          _input('direccion', 'Dirección', (value) {
+            setState(() {
+              _celphone = value;
+            });
+          }),
           Divider(),
           _createClient(),
           Divider(),
