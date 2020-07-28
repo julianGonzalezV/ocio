@@ -82,7 +82,7 @@ class CreateUserPage extends StatelessWidget {
               labelText: 'Email Address',
               icon: Icon(
                 Icons.alternate_email,
-                color: Colors.deepOrangeAccent,
+                color: Colors.deepPurple,
               ),
               errorText: snapshot.error,
               counterText: snapshot.data,
@@ -106,7 +106,7 @@ class CreateUserPage extends StatelessWidget {
               labelText: 'Password',
               icon: Icon(
                 Icons.vpn_key,
-                color: Colors.deepOrangeAccent,
+                color: Colors.deepPurple,
               ),
               errorText: snapshot.error,
             ),
@@ -129,7 +129,7 @@ class CreateUserPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            color: Colors.deepOrangeAccent,
+            color: Colors.deepPurple,
             textColor: Colors.white,
             onPressed: snapshot.hasData
                 ? () => _registerOnPressed(bloc, context)
@@ -139,7 +139,7 @@ class CreateUserPage extends StatelessWidget {
   }
 
   _registerOnPressed(LoginBloc bloc, BuildContext context) async {
-     Map<String, dynamic> info =
+    Map<String, dynamic> info =
         await userProvicer.createUser(bloc.emailValue, bloc.passwordValue);
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'login');
@@ -147,7 +147,6 @@ class CreateUserPage extends StatelessWidget {
       print('_loginOnPressed ${info['message']}');
       showAlert(context, info['message']);
     }
-    
   }
 
   Widget _getBackground(BuildContext context) {
@@ -157,8 +156,8 @@ class CreateUserPage extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: <Color>[
-          Color.fromRGBO(255, 80, 80, 9.0),
-          Color.fromRGBO(180, 70, 300, 9.0),
+          Color.fromRGBO(125, 55, 120, 2.0),
+          Color.fromRGBO(105, 64, 140, 8.0),
         ]),
       ),
     );

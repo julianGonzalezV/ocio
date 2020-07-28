@@ -83,7 +83,7 @@ class LoginPage extends StatelessWidget {
               labelText: 'Email Address',
               icon: Icon(
                 Icons.alternate_email,
-                color: Colors.deepOrangeAccent,
+                color: Colors.deepPurple,
               ),
               errorText: snapshot.error,
               counterText: snapshot.data,
@@ -107,7 +107,7 @@ class LoginPage extends StatelessWidget {
               labelText: 'Password',
               icon: Icon(
                 Icons.vpn_key,
-                color: Colors.deepOrangeAccent,
+                color: Colors.deepPurple,
               ),
               errorText: snapshot.error,
             ),
@@ -130,7 +130,7 @@ class LoginPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            color: Colors.deepOrangeAccent,
+            color: Colors.deepPurple,
             textColor: Colors.white,
             onPressed:
                 snapshot.hasData ? () => _loginOnPressed(bloc, context) : null,
@@ -156,8 +156,8 @@ class LoginPage extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(colors: <Color>[
-          Color.fromRGBO(205, 102, 200, 2.0),
-          Color.fromRGBO(220, 100, 200, 8.0),
+          Color.fromRGBO(125, 55, 120, 2.0),
+          Color.fromRGBO(105, 64, 140, 8.0),
         ]),
       ),
     );

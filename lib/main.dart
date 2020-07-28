@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         initialRoute: 'login',
         routes: appRoutes(),
-        theme: ThemeData(primaryColor: Colors.deepOrangeAccent),
+        theme: ThemeData(primaryColor: Colors.deepPurpleAccent),
       ),
     );
   }
