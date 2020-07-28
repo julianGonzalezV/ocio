@@ -9,12 +9,13 @@ class HomePage extends StatelessWidget {
     final bloc = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          children: <Widget>[
-            Text('Email ${bloc.emailValue}'),
-            Text('Password ${bloc.passwordValue} '),
-          ],
-        ),
+        title: Text('Home'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Text('Email ${bloc.emailValue}'),
+          Text('Password ${bloc.passwordValue} '),
+        ],
       ),
     );
   }

@@ -10,7 +10,7 @@ class CreateClientState extends State<CreateClientPage> {
   String _names = '';
   String _lastNames = '';
   String _address = '';
-  String _birthdate = '';
+  String _birthdate = DateTime.now().toString();
   String _celphone = '';
   String _email = '';
 
@@ -41,7 +41,7 @@ class CreateClientState extends State<CreateClientPage> {
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
         hintText: 'Email',
-        labelText: 'Email',
+        labelText: 'Email de contacto',
         suffixIcon: Icon(Icons.email),
       ),
       onChanged: (value) {
@@ -80,6 +80,7 @@ class CreateClientState extends State<CreateClientPage> {
         suffixIcon: Icon(Icons.calendar_today),
       ),
       onTap: () {
+        print('context es $context');
         FocusScope.of(context).requestFocus(new FocusScopeNode());
         _dateSelect(context);
       },
@@ -120,6 +121,7 @@ class CreateClientState extends State<CreateClientPage> {
   }
 
   _dateSelect(BuildContext context) async {
+    print('_dateSelect');
     DateTime seleccion = await showDatePicker(
       context: context,
       initialDate: new DateTime.now(),
@@ -127,7 +129,9 @@ class CreateClientState extends State<CreateClientPage> {
       lastDate: new DateTime(2025),
       locale: Locale('es', 'ES'),
     );
+    print('Selecciono $seleccion');
     if (seleccion != null) {
+      print('va a seleccionar');
       setState(() {
         _birthdate = seleccion.toString();
         _inputFechaCtr.text = _birthdate;
@@ -146,7 +150,9 @@ class CreateClientState extends State<CreateClientPage> {
       ),
       color: Colors.deepPurple,
       textColor: Colors.white,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pop(context, 'home');
+      },
     );
   }
 

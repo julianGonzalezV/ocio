@@ -142,7 +142,7 @@ class CreateUserPage extends StatelessWidget {
     Map<String, dynamic> info =
         await userProvicer.createUser(bloc.emailValue, bloc.passwordValue);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'login');
+      Navigator.pop(context, 'login');
     } else {
       print('_loginOnPressed ${info['message']}');
       showAlert(context, info['message']);
