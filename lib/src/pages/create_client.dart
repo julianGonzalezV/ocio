@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ocio/src/bloc/provider.dart';
 import 'package:ocio/src/model/client.dart';
 import 'package:ocio/src/model/contact.dart';
+import 'package:ocio/src/providers/client_provider.dart';
 
 class CreateClientPage extends StatefulWidget {
   @override
@@ -8,6 +10,7 @@ class CreateClientPage extends StatefulWidget {
 }
 
 class CreateClientState extends State<CreateClientPage> {
+  final clientProvider = new ClientProvider();
   String _idNumber = '';
   String _gender = '';
   String _name1 = '';
@@ -17,9 +20,6 @@ class CreateClientState extends State<CreateClientPage> {
   String _address = '';
   String _birthdate = DateTime.now().toString();
   String _cellphone = '';
-  String _email = '';
-
-  String _password = '';
 
   List<String> _idTypeList = ['C', 'P', 'E'];
   List<String> _genderList = ['', 'F', 'M'];
@@ -52,7 +52,7 @@ class CreateClientState extends State<CreateClientPage> {
       ),
       onChanged: (value) {
         setState(() {
-          _email = value;
+          //_email = value;
         });
       },
     );
@@ -69,7 +69,7 @@ class CreateClientState extends State<CreateClientPage> {
       ),
       onChanged: (value) {
         setState(() {
-          _password = value;
+          //_password = value;
         });
       },
     );
@@ -142,7 +142,7 @@ class CreateClientState extends State<CreateClientPage> {
     }
   }
 
-  Widget _createClient() {
+  Widget _createClient(LoginBloc bloc) {
     return RaisedButton(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 10.0),
@@ -163,7 +163,7 @@ class CreateClientState extends State<CreateClientPage> {
             _lastName1,
             _lastName2,
             _birthdate,
-            Contact(_address, _cellphone, _email));
+            Contact(_address, _cellphone, bloc.emailValue));
         print('Cliente str ${client.toString()}');
         // Navigator.pop(context, 'home');
       },
@@ -172,6 +172,7 @@ class CreateClientState extends State<CreateClientPage> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Registro (Te lo preguntaremos solo una vez)'),
@@ -223,8 +224,6 @@ class CreateClientState extends State<CreateClientPage> {
           Divider(),
           _fechaInput(context),
           Divider(),
-          _emailInput(),
-          Divider(),
           _input('celular', 'Número celular', (value) {
             setState(() {
               _cellphone = value;
@@ -237,7 +236,7 @@ class CreateClientState extends State<CreateClientPage> {
             });
           }),
           Divider(),
-          _createClient(),
+          _createClient(bloc),
           Divider(),
         ],
       ),
