@@ -160,7 +160,8 @@ class CreateClientState extends State<CreateClientPage> {
 
   /// Create client action
   _createClientOnPressed(LoginBloc bloc) async {
-    Client client = new Client(
+    Navigator.pushNamed(context, 'itemSummary');
+    /*Client client = new Client(
         _idType,
         _idNumber,
         _gender,
@@ -178,7 +179,7 @@ class CreateClientState extends State<CreateClientPage> {
     } else {
       print('_loginOnPressed ${info['message']}');
       showAlert(context, info['message']);
-    }
+    }*/
   }
 
   @override
