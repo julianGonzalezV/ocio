@@ -15,15 +15,33 @@ class ClientProvider {
     print('va a crear cliente');
     final httpResp = await http.post(
       _url,
-      body: json.encode(cl),
+      body: json.encode(_clientToJson(cl)),
     );
-    Map<String, dynamic> response = json.decode(httpResp.body);
-    print(response);
+    /*Map<String, dynamic> response = json.decode(httpResp.body);
+    print(response);*/
 
-    if (httpResp.statusCode == 200) {
+    if (httpResp.statusCode == 201) {
       return {'ok': true, 'clientId': cl.idNumber};
     } else {
-      return {'ok': false, 'message': response['error']['message']};
+      return {'ok': false, 'message': 'Errorrrr'};
     }
+  }
+
+  Map<String, dynamic> _clientToJson(Client cl) {
+    return {
+      'idNumber': cl.idNumber,
+      'idType': cl.idType,
+      'gender': cl.gender,
+      'firstName': cl.firstName,
+      'secondName': cl.secondName,
+      'firstLastName': cl.firstLastName,
+      'secondLastName': cl.secondLastName,
+      'birthdate': cl.birthdate,
+      'contact': {
+        'email': cl?.contact?.email,
+        'cellphone': cl?.contact?.cellphone,
+        'address': cl?.contact?.address,
+      },
+    };
   }
 }

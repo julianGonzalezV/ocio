@@ -68,6 +68,6 @@ class Client {
     return '{idNumber: $idNumber, idType: $idType, gender: $gender,'
         'firstName: $firstName, secondName: $secondName,'
         'firstLastName: $firstLastName, secondLastName: $secondLastName,'
-        'birthdate: $birthdate, contact: $contact}';
+        'birthdate: $birthdate, contact: ${contact.toString()}}';
   }
 }

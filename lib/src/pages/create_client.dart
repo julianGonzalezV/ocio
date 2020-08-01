@@ -154,13 +154,13 @@ class CreateClientState extends State<CreateClientPage> {
       ),
       color: Colors.deepPurple,
       textColor: Colors.white,
-      onPressed: _createClientOnPressed(bloc),
+      onPressed: () => _createClientOnPressed(bloc),
     );
   }
 
   /// Create client action
   _createClientOnPressed(LoginBloc bloc) async {
-    Client client = Client(
+    Client client = new Client(
         _idType,
         _idNumber,
         _gender,
