@@ -7,10 +7,12 @@ import 'package:ocio/src/model/client.dart';
 class ClientProvider {
   /// Lo idea es que esto sea inicializado en variables de entorno
   final String _apiKey = "XXXXX";
-  final String _url = "XXXXX";
+  final String _url =
+      "https://23j9ok8564.execute-api.us-east-1.amazonaws.com/qa/clients";
   final _prefs = new UserPreferences();
 
   Future<Map<String, dynamic>> createClient(Client cl) async {
+    print('va a crear cliente');
     final httpResp = await http.post(
       _url,
       body: json.encode(cl),

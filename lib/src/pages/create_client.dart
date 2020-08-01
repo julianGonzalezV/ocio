@@ -3,6 +3,7 @@ import 'package:ocio/src/bloc/provider.dart';
 import 'package:ocio/src/model/client.dart';
 import 'package:ocio/src/model/contact.dart';
 import 'package:ocio/src/providers/client_provider.dart';
+import 'package:ocio/src/util/app_message.dart';
 
 class CreateClientPage extends StatefulWidget {
   @override
@@ -153,21 +154,31 @@ class CreateClientState extends State<CreateClientPage> {
       ),
       color: Colors.deepPurple,
       textColor: Colors.white,
-      onPressed: () {
-        Client client = Client(
-            _idType,
-            _idNumber,
-            _gender,
-            _name1,
-            _name2,
-            _lastName1,
-            _lastName2,
-            _birthdate,
-            Contact(_address, _cellphone, bloc.emailValue));
-        print('Cliente str ${client.toString()}');
-        // Navigator.pop(context, 'home');
-      },
+      onPressed: _createClientOnPressed(bloc),
     );
+  }
+
+  /// Create client action
+  _createClientOnPressed(LoginBloc bloc) async {
+    Client client = Client(
+        _idType,
+        _idNumber,
+        _gender,
+        _name1,
+        _name2,
+        _lastName1,
+        _lastName2,
+        _birthdate,
+        Contact(_address, _cellphone, bloc.emailValue));
+
+    Map<String, dynamic> info = await clientProvider.createClient(client);
+
+    if (info['ok']) {
+      print('Created user ${info['clientId']}');
+    } else {
+      print('_loginOnPressed ${info['message']}');
+      showAlert(context, info['message']);
+    }
   }
 
   @override
