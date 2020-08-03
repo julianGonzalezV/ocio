@@ -250,6 +250,13 @@ class CreateClientState extends State<CreateClientPage> {
           Divider(),
           _createClient(bloc),
           Divider(),
+          RaisedButton(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 10.0),
+              child: Text('Registrar'),
+            ),
+            onPressed: () => Navigator.pushNamed(context, 'welcome'),
+          ),
         ],
       ),
     );
