@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ocio/src/bloc/provider.dart';
-import 'package:ocio/src/model/client.dart';
-import 'package:ocio/src/model/contact.dart';
 import 'package:ocio/src/providers/client_provider.dart';
-import 'package:ocio/src/util/app_message.dart';
 
 class CreateClientPage extends StatefulWidget {
   @override
@@ -256,6 +253,14 @@ class CreateClientState extends State<CreateClientPage> {
               child: Text('Registrar'),
             ),
             onPressed: () => Navigator.pushNamed(context, 'welcome'),
+          ),
+          Divider(),
+          RaisedButton(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 10.0),
+              child: Text('Home'),
+            ),
+            onPressed: () => Navigator.pushNamed(context, 'home'),
           ),
         ],
       ),
