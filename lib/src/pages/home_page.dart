@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   _titles(),
-                  _categories(),
+                  _categories(context),
                 ],
               ),
             )
@@ -36,7 +36,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _bottonCategory(String text, IconData icon, Color color) {
+  Widget _bottonCategory(
+      BuildContext context, String text, IconData icon, Color color) {
     return Container(
       height: 180.0,
       margin: EdgeInsets.all(15.0),
@@ -46,13 +47,18 @@ class HomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          CircleAvatar(
-            backgroundColor: color,
-            radius: 35.0,
-            child: Icon(
-              icon,
-              color: Colors.white,
-              size: 20.0,
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, 'itemSummary');
+            },
+            child: CircleAvatar(
+              backgroundColor: color,
+              radius: 35.0,
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 20.0,
+              ),
             ),
           ),
           Text(
@@ -67,20 +73,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _categories() {
+  Widget _categories(BuildContext context) {
     return Table(
       children: <TableRow>[
         TableRow(children: [
-          _bottonCategory('Eventos', Icons.border_all, Colors.blue),
-          _bottonCategory('Cocina', Icons.directions_bus, Colors.purple)
-        ]),
-        TableRow(children: [
-          _bottonCategory('Centros comerciales', Icons.shop, Colors.pinkAccent),
-          _bottonCategory('otro1', Icons.insert_drive_file, Colors.orange)
-        ]),
-        TableRow(children: [
-          _bottonCategory('otro2', Icons.movie_filter, Colors.blueAccent),
-          _bottonCategory('otro3', Icons.cloud, Colors.green)
+          _bottonCategory(
+              context, 'Eventos', Icons.calendar_view_day, Colors.blue),
+          _bottonCategory(context, 'Cocina', Icons.fastfood, Colors.purple)
         ]),
       ],
     );
@@ -105,7 +104,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _background() {
-    final boxColor = Transform.rotate(
+    final boxColor1 = Transform.rotate(
       angle: -pi / 4.0,
       child: Container(
         height: 360.0,
@@ -113,8 +112,22 @@ class HomePage extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(70.0),
             gradient: LinearGradient(colors: <Color>[
-              Color.fromRGBO(105, 64, 140, 8.0),
               Colors.white,
+              Color.fromRGBO(105, 64, 140, 8.0),
+            ])),
+      ),
+    );
+
+    final boxColor2 = Transform.rotate(
+      angle: -pi / 4.0,
+      child: Container(
+        height: 360.0,
+        width: 360.0,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(70.0),
+            gradient: LinearGradient(colors: <Color>[
+              Colors.white,
+              Color.fromRGBO(105, 64, 140, 8.0),
             ])),
       ),
     );
@@ -135,7 +148,8 @@ class HomePage extends StatelessWidget {
     return Stack(
       children: <Widget>[
         gradient,
-        Positioned(top: -100, child: boxColor),
+        Positioned(top: -100, right: 150, child: boxColor1),
+        Positioned(top: -100, left: 230, child: boxColor2)
       ],
     );
   }
@@ -143,20 +157,20 @@ class HomePage extends StatelessWidget {
   Widget _titles() {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(50.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               '¿Que hay para hacer?',
               style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.deepPurple,
                   fontSize: 30,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10.0),
             Text('Seleccione la categoría que desea consultar:',
-                style: TextStyle(color: Colors.white, fontSize: 20))
+                style: TextStyle(color: Colors.deepPurple, fontSize: 20))
           ],
         ),
       ),

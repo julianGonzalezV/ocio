@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ocio/src/bloc/provider.dart';
+import 'package:ocio/src/model/client.dart';
+import 'package:ocio/src/model/contact.dart';
 import 'package:ocio/src/providers/client_provider.dart';
+import 'package:ocio/src/util/app_message.dart';
 
 class CreateClientPage extends StatefulWidget {
   @override
@@ -157,8 +160,7 @@ class CreateClientState extends State<CreateClientPage> {
 
   /// Create client action
   _createClientOnPressed(LoginBloc bloc) async {
-    Navigator.pushNamed(context, 'itemSummary');
-    /*Client client = new Client(
+    Client client = new Client(
         _idType,
         _idNumber,
         _gender,
@@ -173,10 +175,11 @@ class CreateClientState extends State<CreateClientPage> {
 
     if (info['ok']) {
       print('Created user ${info['clientId']}');
+      Navigator.pushNamed(context, 'home');
     } else {
       print('_loginOnPressed ${info['message']}');
       showAlert(context, info['message']);
-    }*/
+    }
   }
 
   @override
@@ -246,22 +249,6 @@ class CreateClientState extends State<CreateClientPage> {
           }),
           Divider(),
           _createClient(bloc),
-          Divider(),
-          RaisedButton(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 10.0),
-              child: Text('Registrar'),
-            ),
-            onPressed: () => Navigator.pushNamed(context, 'welcome'),
-          ),
-          Divider(),
-          RaisedButton(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 10.0),
-              child: Text('Home'),
-            ),
-            onPressed: () => Navigator.pushNamed(context, 'home'),
-          ),
         ],
       ),
     );
