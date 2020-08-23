@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           InkWell(
             onTap: () {
-              Navigator.pushNamed(context, 'itemSummary');
+              Navigator.pushNamed(context, 'itemList');
             },
             child: CircleAvatar(
               backgroundColor: color,
