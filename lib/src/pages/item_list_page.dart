@@ -1,163 +1,198 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+import 'package:ocio/src/widgets/card_recomendados.dart';
+import 'package:ocio/src/styles/styles.dart';
+import 'package:ocio/src/widgets/app_bar.dart';
+
 class ItemListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Swiper(
-        itemCount: 1,
-        itemHeight: 430.0,
-        itemWidth: 500.0,
-        layout: SwiperLayout.TINDER,
-        itemBuilder: (BuildContext context, int index) {
-          return PageView(
-            children: <Widget>[_cardRecomendadosSwiper()],
-          );
-        },
-      ),
-    );
-  }
+    final sizeScreen = MediaQuery.of(context).size;
 
-  Widget _cardRecomendadosSwiper() {
     return Container(
-      padding: EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(8.0)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _imageProduct(),
-          Container(
-              margin: EdgeInsets.only(top: 10.0),
-              child: Text(
-                'Chuleta valluna grande',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w500),
-              )),
-          _starts(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _botonActivado(),
-              _botonDesactivado('Grande', '34.000'),
-              _botonDesactivado('Grande', '34.000')
-            ],
-          ),
-          _botonAdd(),
-          _botonAddCar()
-        ],
-      ),
-    );
-  }
-
-  Widget _imageProduct() {
-    return Container(
-      decoration: BoxDecoration(boxShadow: <BoxShadow>[
-        BoxShadow(color: Colors.white, blurRadius: 2.5, spreadRadius: 1.0)
-      ]),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
-        child: Image(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/imgs/recomendada.jpg'),
-          width: double.infinity,
-          height: 200.0,
+        child: Scaffold(
+      body: SafeArea(
+          child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            appBar(),
+            SizedBox(
+              height: 30.0,
+            ),
+            _recomendados(),
+            _swiperRecomendados(sizeScreen),
+            SizedBox(
+              height: 5.0,
+            ),
+            _menuContainer(context),
+            _gridRecomendados(context)
+          ],
         ),
-      ),
-    );
+      )),
+    ));
   }
 
-  Widget _starts() {
+  Widget _gridRecomendados(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Icon(Icons.star, color: Colors.red, size: 18.0),
-        Icon(Icons.star, color: Colors.red, size: 18.0),
-        Icon(Icons.star, color: Colors.red, size: 18.0),
-        Icon(Icons.star, color: Colors.red, size: 18.0),
-        Icon(Icons.star, color: Colors.grey, size: 18.0)
+        GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'itemSummary');
+            },
+            child: _menuCard('Veg Pizza', 'assets/imgs/pizza2.jpg', -40.0)),
+        GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, 'itemSummary');
+            },
+            child: _menuCard('Double Pizza', 'assets/imgs/pizza3.jpg', -28.0)),
       ],
     );
   }
 
-  Widget _botonAdd() {
-    return Container(
-      margin: EdgeInsets.only(top: 20.0),
-      alignment: Alignment.topCenter,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: Color.fromRGBO(248, 248, 248, 1.0)),
-      padding: EdgeInsets.all(8.0),
-      width: double.infinity,
-      child: Text('Personaliza y añade',
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 12.0,
-              fontFamily: 'SF-Pro-Text_Bold')),
+  Widget _menuCard(String textoEncabezdo, String ruta, double positionLeft) {
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(20.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            child: Image(
+              image: AssetImage(ruta),
+              width: 150.0,
+              height: 150.0,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Transform.translate(
+            offset: Offset(positionLeft, -10.0),
+            child: Text(
+              textoEncabezdo,
+              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
+            )),
+        Transform.translate(
+            offset: const Offset(-20.0, -10.0),
+            child: Text(
+              'A partir de 15€',
+              style: TextStyle(
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
+                  color: colorTextMuted),
+            )),
+      ],
     );
   }
 
-  Widget _botonAddCar() {
-    return Container(
-      margin: EdgeInsets.only(top: 10.0),
-      alignment: Alignment.topCenter,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0), color: Colors.red),
-      padding: EdgeInsets.all(8.0),
-      width: double.infinity,
-      child: Text('Añadir al carrito',
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 12.0,
-              fontFamily: 'SF-Pro-Text_Bold')),
+  Widget _recomendados() {
+    return Row(
+      children: <Widget>[
+        _recomendacion(),
+        Expanded(child: Container()),
+        Container(
+            padding: EdgeInsets.only(right: 10.0),
+            child: Text(
+              'Ver todo',
+              style: TextStyle(
+                  fontFamily: 'SF-Pro-Text-Bold',
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red),
+            ))
+      ],
     );
   }
 
-  Widget _botonActivado() {
+  Widget _recomendacion() {
+    return Column(
+      children: <Widget>[
+        Transform.translate(
+            offset: const Offset(-13.0, 0.0),
+            child: Text(
+              'Recomendados',
+              style: TextStyle(
+                  fontFamily: 'SF-Pro-Text-Bold',
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold),
+            )),
+        Container(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              'Basado en tu historial de compras',
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: colorTextMuted),
+            ))
+      ],
+    );
+  }
+
+  Widget _swiperRecomendados(Size sizeScreen) {
     return Container(
-      margin: EdgeInsets.only(top: 10.0),
-      padding: EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(3.0),
-          color: Colors.white,
-          boxShadow: <BoxShadow>[
-            BoxShadow(color: Colors.red, spreadRadius: 1.0)
-          ]),
-      child: Row(
-        children: [
-          Text('Mediana', style: TextStyle(color: Colors.red, fontSize: 10.0)),
-          Container(
-            margin: EdgeInsets.only(left: 10.0),
-            child: Text('13.000',
-                style: TextStyle(color: Colors.black, fontSize: 10.0)),
-          )
-        ],
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return PageView(
+            //controller: controller,
+            children: <Widget>[cardRecomendados(sizeScreen)],
+          );
+        },
+        itemCount: 3,
+        itemWidth: sizeScreen.width * 1.1,
+        itemHeight: sizeScreen.height * 0.45,
+        layout: SwiperLayout.TINDER,
       ),
     );
   }
 
-  Widget _botonDesactivado(String size, String price) {
-    return Container(
-      margin: EdgeInsets.only(top: 10.0),
-      padding: EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(3.0),
-          color: Colors.white,
-          boxShadow: <BoxShadow>[
-            BoxShadow(color: Colors.grey, spreadRadius: 1.0)
-          ]),
-      child: Row(
-        children: [
-          Text(size, style: TextStyle(color: Colors.grey, fontSize: 10.0)),
-          Container(
-            margin: EdgeInsets.only(left: 10.0),
-            child: Text(price,
-                style: TextStyle(color: Colors.grey, fontSize: 10.0)),
-          )
-        ],
-      ),
+  Widget _menuContainer(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        _menuText(),
+        Expanded(child: Container()),
+        Container(
+            padding: EdgeInsets.only(right: 10.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, 'menu');
+              },
+              child: Text(
+                'Ver todo',
+                style: TextStyle(
+                    fontFamily: 'SF-Pro-Text-Bold',
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red),
+              ),
+            ))
+      ],
+    );
+  }
+
+  Widget _menuText() {
+    return Column(
+      children: <Widget>[
+        Transform.translate(
+            offset: const Offset(-20.0, 0.0),
+            child: Text(
+              'Menu',
+              style: TextStyle(
+                  fontFamily: 'SF-Pro-Text-Bold',
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold),
+            )),
+        Container(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(
+              'Que hay en el menú',
+              style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w600,
+                  color: colorTextMuted),
+            ))
+      ],
     );
   }
 }
