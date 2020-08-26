@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ocio/src/bloc/login_bloc.dart';
 import 'package:ocio/src/bloc/provider.dart';
+import 'package:ocio/src/providers/client_provider.dart';
 import 'package:ocio/src/providers/user_provider.dart';
 import 'package:ocio/src/util/app_message.dart';
 
 class LoginPage extends StatelessWidget {
   final userProvicer = new UserProvider();
+  final clientProvider = ClientProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +144,12 @@ class LoginPage extends StatelessWidget {
     Map<String, dynamic> loginInfo =
         await userProvicer.userLoggin(bloc.emailValue, bloc.passwordValue);
     if (loginInfo['ok']) {
-      Navigator.pushReplacementNamed(context, 'createClient');
+      Map<String, dynamic> clientExist =
+          await clientProvider.getClientBymail(bloc.emailValue);
+      clientExist['exists']
+          ? Navigator.pushReplacementNamed(context, 'home')
+          : Navigator.pushReplacementNamed(context, 'createClient');
+      ;
     } else {
       print('_loginOnPressed ${loginInfo['message']}');
       showAlert(context, loginInfo['message']);
