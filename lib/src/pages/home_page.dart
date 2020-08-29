@@ -2,20 +2,20 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:ocio/src/bloc/provider.dart';
 import 'package:ocio/src/model/item.dart';
 import 'package:ocio/src/providers/item_provider.dart';
+import 'package:ocio/src/util/icon_str.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    //final bloc = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text('Encuentra tu opción favorita'),
+        title: Text('Encuentra donde pedir hoy '),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -26,15 +26,7 @@ class HomePage extends StatelessWidget {
       body: Scaffold(
         body: Stack(
           children: <Widget>[
-            _background(),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  _titles(),
-                  _categories(context),
-                ],
-              ),
-            )
+            _items(),
           ],
         ),
       ),
@@ -92,12 +84,13 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _items() {
-    //menuProvider.cargarDatosMenu().then((listadoMenu) {
     return FutureBuilder(
       future: itemProvider.findItem(""),
       initialData: [],
-      builder: (BuildContext context, AsyncSnapshot<List<Item>> snapshot) {
-        return ListView(children: _itemList(snapshot.data, context));
+      builder: (context, snapshot) {
+        return ListView(
+          children: _itemList(snapshot.data, context),
+        );
       },
     );
   }
@@ -107,13 +100,16 @@ class HomePage extends StatelessWidget {
         .map((item) => Column(
               children: <Widget>[
                 ListTile(
-                  title: Text(item['texto']),
-                  subtitle: Text('Subtitulo'),
-                  leading:
-                      getIcon(item['icon']), //leading es un elemento al inicio
+                  title: Text(item['title']),
+                  subtitle: Text(item['type']),
+                  leading: Image(
+                    width: 100.0,
+                    height: 100.0,
+                    image: NetworkImage(item['image']),
+                  ),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.pushNamed(context, item['ruta']);
+                    Navigator.pushNamed(context, 'itemSummary');
                   },
                 ),
                 Divider()
