@@ -3,6 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ocio/src/bloc/provider.dart';
+import 'package:ocio/src/model/item.dart';
+import 'package:ocio/src/providers/item_provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -11,12 +13,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
     return Scaffold(
-      /*body: Column(
-        children: <Widget>[
-          Text('Email ${bloc.emailValue}'),
-          Text('Password ${bloc.passwordValue} '),
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text('Encuentra tu opción favorita'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          )
         ],
-      ),*/
+      ),
       body: Scaffold(
         body: Stack(
           children: <Widget>[
@@ -83,6 +89,37 @@ class HomePage extends StatelessWidget {
         ]),
       ],
     );
+  }
+
+  Widget _items() {
+    //menuProvider.cargarDatosMenu().then((listadoMenu) {
+    return FutureBuilder(
+      future: itemProvider.findItem(""),
+      initialData: [],
+      builder: (BuildContext context, AsyncSnapshot<List<Item>> snapshot) {
+        return ListView(children: _itemList(snapshot.data, context));
+      },
+    );
+  }
+
+  List<Widget> _itemList(List<dynamic> listado, BuildContext context) {
+    return listado
+        .map((item) => Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(item['texto']),
+                  subtitle: Text('Subtitulo'),
+                  leading:
+                      getIcon(item['icon']), //leading es un elemento al inicio
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.pushNamed(context, item['ruta']);
+                  },
+                ),
+                Divider()
+              ],
+            ))
+        .toList();
   }
 
   Widget _bottomNavigationBar(BuildContext context) {

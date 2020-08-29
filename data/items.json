@@ -1,0 +1,24 @@
+{
+    "items": [
+        {
+            "title": "Aquitanía",
+            "image": "imagen",
+            "type": "carta-casero"
+        },
+        {
+            "title": "Los del Éxito",
+            "image": "imagen",
+            "type": "casero"
+        },
+        {
+            "title": "Mondongos",
+            "image": "imagen",
+            "type": "carta-casero"
+        },
+        {
+            "title": "Parador Paisa ",
+            "image": "imagen",
+            "type": "Casero"
+        }
+    ]
+}
