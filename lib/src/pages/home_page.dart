@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
 
   Widget _items() {
     return FutureBuilder(
-      future: itemProvider.findItem(""),
+      future: itemProvider.findAllItems(),
       initialData: [],
       builder: (context, snapshot) {
         return ListView(

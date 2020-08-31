@@ -1,23 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ocio/src/providers/item_provider.dart';
 
 class DataSearch extends SearchDelegate {
+  final ItemProvider _itemProvider = ItemProvider();
   String _selectionValue = "";
-
-  final suggestions = [
-    "El italiano",
-    "Sabores",
-    "Sazon",
-    "Parador paisa",
-    "Guayabal Sancochos",
-    "Otro 1",
-    "Otro 2",
-  ];
-
-  final latestSuggestions = [
-    "Aquitanía",
-    "Laureles",
-    "Cocorollo",
-  ];
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -63,25 +49,37 @@ class DataSearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     // Suggestions when typing on the search field
-    final suggestedList = (query.isEmpty)
-        ? latestSuggestions
-        : suggestions
-            .where((element) =>
-                element.toLowerCase().startsWith(query.toLowerCase()))
-            .toList();
 
-    return ListView.builder(
-        itemCount: suggestedList.length,
-        itemBuilder: (context, i) {
-          return ListTile(
-            leading: Icon(Icons.restaurant),
-            title: Text(suggestedList[i]),
-            onTap: () {
-              _selectionValue = suggestedList[i];
-              // Para que refresque el componenete
-              showResults(context);
-            },
-          );
-        });
+    if (query.isEmpty) return Container();
+
+    return FutureBuilder(
+      future: _itemProvider.findItem(query),
+      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+        return (snapshot.hasData)
+            ? ListView(
+                children: snapshot.data
+                    .map((elem) => ListTile(
+                          leading: FadeInImage(
+                            placeholder: AssetImage('assets/img/no-image.jpg'),
+                            image: NetworkImage(elem['image']),
+                            width: 50.0,
+                            fit: BoxFit.contain,
+                          ),
+                          title: Text(elem['title']),
+                          subtitle: Text(elem['type']),
+                          onTap: () {
+                            // First, the search has to be closed
+                            close(context, null);
+                            Navigator.pushNamed(context, 'itemSummary',
+                                arguments: elem);
+                          },
+                        ))
+                    .toList(),
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              );
+      },
+    );
   }
 }
