@@ -2,33 +2,31 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:ocio/src/bloc/provider.dart';
+import 'package:ocio/src/model/item.dart';
+import 'package:ocio/src/providers/item_provider.dart';
+import 'package:ocio/src/util/icon_str.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    //final bloc = Provider.of(context);
     return Scaffold(
-      /*body: Column(
-        children: <Widget>[
-          Text('Email ${bloc.emailValue}'),
-          Text('Password ${bloc.passwordValue} '),
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text('Encuentra donde pedir hoy '),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          )
         ],
-      ),*/
+      ),
       body: Scaffold(
         body: Stack(
           children: <Widget>[
-            _background(),
-            SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  _titles(),
-                  _categories(context),
-                ],
-              ),
-            )
+            _items(),
           ],
         ),
       ),
@@ -83,6 +81,41 @@ class HomePage extends StatelessWidget {
         ]),
       ],
     );
+  }
+
+  Widget _items() {
+    return FutureBuilder(
+      future: itemProvider.findItem(""),
+      initialData: [],
+      builder: (context, snapshot) {
+        return ListView(
+          children: _itemList(snapshot.data, context),
+        );
+      },
+    );
+  }
+
+  List<Widget> _itemList(List<dynamic> listado, BuildContext context) {
+    return listado
+        .map((item) => Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(item['title']),
+                  subtitle: Text(item['type']),
+                  leading: Image(
+                    width: 100.0,
+                    height: 100.0,
+                    image: NetworkImage(item['image']),
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.pushNamed(context, 'itemSummary');
+                  },
+                ),
+                Divider()
+              ],
+            ))
+        .toList();
   }
 
   Widget _bottomNavigationBar(BuildContext context) {
