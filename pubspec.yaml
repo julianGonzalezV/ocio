@@ -24,13 +24,16 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
-    sdk: flutter  
+    sdk: flutter 
+  
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   flutter_swiper: ^1.1.6
+
+  
 
 
   #additional capabilities to Dart Streams and StreamControllers.

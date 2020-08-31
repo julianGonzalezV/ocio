@@ -10,6 +10,9 @@ class ItemProvider {
       "https://23j9ok8564.execute-api.us-east-1.amazonaws.com/qa/clients";
   final String _searchByEmailUrl = "/email/";
 
+  final String _urlTest = "https://jsonplaceholder.typicode.com/albums/";
+  final String _searchByBusiness = "/photos";
+
   Future<List<dynamic>> findItem(String query) async {
     print('va a getClientBymail');
     final httpResp = await http.get(
@@ -20,6 +23,15 @@ class ItemProvider {
     Map dataMap = json.decode(loadResponse);
     print('Map $dataMap');
     return dataMap['items'];
+  }
+
+  Future<Object> findItemsForBusiness(String id) async {
+    print('va a mostrar productos');
+    final httpResp = await http.get(
+      '$_urlTest$id$_searchByBusiness',
+    );
+    print(httpResp);
+    return httpResp;
   }
 }
 

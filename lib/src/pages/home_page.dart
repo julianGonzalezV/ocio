@@ -109,7 +109,7 @@ class HomePage extends StatelessWidget {
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.pushNamed(context, 'itemSummary');
+                    Navigator.pushNamed(context, 'itemList');
                   },
                 ),
                 Divider()
