@@ -9,7 +9,7 @@ Widget cardRecomendados(Size sizeScreen) {
       borderRadius: BorderRadius.circular(8.0),
       color: Colors.white,
     ),
-    child: Column(
+    child: ListView(
       children: <Widget>[
         _imagenPizza(),
         SizedBox(
