@@ -70,6 +70,8 @@ flutter:
   assets:
     - assets/imgs/
     - data/items.json
+    - assets/icon/
+    - assets/img/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
