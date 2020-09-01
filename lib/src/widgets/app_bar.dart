@@ -23,7 +23,7 @@ Widget _ubicacion() {
         offset: const Offset(-28.0, 0.0),
         child: Row(
           children: <Widget>[
-            Icon(Icons.location_on, color: Colors.red),
+            Icon(Icons.location_on, color: Colors.purple),
             Text(
               'Ubicación',
               style: estiloUbicacion,

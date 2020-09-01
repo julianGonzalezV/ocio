@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:ocio/src/widgets/card_recomendados.dart';
 import 'package:ocio/src/styles/styles.dart';
 import 'package:ocio/src/widgets/app_bar.dart';
+import 'package:ocio/src/providers/item_provider.dart';
 
 class ItemListPage extends StatelessWidget {
+  String url = "https://jsonplaceholder.typicode.com/users/1/todos";
+
   @override
   Widget build(BuildContext context) {
     final sizeScreen = MediaQuery.of(context).size;
-
     return Container(
         child: Scaffold(
       body: SafeArea(
@@ -99,7 +102,7 @@ class ItemListPage extends StatelessWidget {
                   fontFamily: 'SF-Pro-Text-Bold',
                   fontSize: 14.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.red),
+                  color: Colors.purple),
             ))
       ],
     );
@@ -164,7 +167,7 @@ class ItemListPage extends StatelessWidget {
                     fontFamily: 'SF-Pro-Text-Bold',
                     fontSize: 14.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red),
+                    color: Colors.purple),
               ),
             ))
       ],
@@ -194,5 +197,40 @@ class ItemListPage extends StatelessWidget {
             ))
       ],
     );
+  }
+
+  Widget _items() {
+    return FutureBuilder(
+      future: itemProvider.findItem(""),
+      initialData: [],
+      builder: (context, snapshot) {
+        return ListView(
+          children: _itemList(snapshot.data, context),
+        );
+      },
+    );
+  }
+
+  List<Widget> _itemList(List<dynamic> listado, BuildContext context) {
+    return listado
+        .map((item) => Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(item['title']),
+                  subtitle: Text(item['type']),
+                  leading: Image(
+                    width: 100.0,
+                    height: 100.0,
+                    image: NetworkImage(item['image']),
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.pushNamed(context, 'itemList');
+                  },
+                ),
+                Divider()
+              ],
+            ))
+        .toList();
   }
 }

@@ -23,11 +23,11 @@ Widget cardRecomendados(Size sizeScreen) {
             )),
         Row(
           children: <Widget>[
-            Icon(Icons.star, color: Colors.red, size: 18.0),
-            Icon(Icons.star, color: Colors.red, size: 18.0),
-            Icon(Icons.star, color: Colors.red, size: 18.0),
-            Icon(Icons.star, color: Colors.red, size: 18.0),
-            Icon(Icons.star, color: Colors.grey, size: 18.0)
+            Icon(Icons.star, color: Colors.purple, size: 18.0),
+            Icon(Icons.star, color: Colors.purple, size: 18.0),
+            Icon(Icons.star, color: Colors.purple, size: 18.0),
+            Icon(Icons.star, color: Colors.purple, size: 18.0),
+            Icon(Icons.star, color: Colors.purple, size: 18.0)
           ],
         ),
         SizedBox(
@@ -78,11 +78,11 @@ Widget _botonMarcado() {
         borderRadius: BorderRadius.circular(1.0),
         color: Colors.white,
         boxShadow: <BoxShadow>[
-          BoxShadow(color: Colors.red, blurRadius: 0.5, spreadRadius: 0.5)
+          BoxShadow(color: Colors.purple, blurRadius: 0.5, spreadRadius: 0.5)
         ]),
     child: Row(
       children: <Widget>[
-        Text('Mediana', style: TextStyle(fontSize: 10.0, color: Colors.red)),
+        Text('Mediana', style: TextStyle(fontSize: 10.0, color: Colors.purple)),
         SizedBox(
           width: 10.0,
         ),
@@ -135,8 +135,7 @@ Widget _botonCarrito() {
   return Container(
     alignment: Alignment.topCenter,
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: Color.fromRGBO(243, 73, 73, 1.0)),
+        borderRadius: BorderRadius.circular(8.0), color: Colors.purple),
     padding: EdgeInsets.all(8.0),
     width: double.infinity,
     child: Text(

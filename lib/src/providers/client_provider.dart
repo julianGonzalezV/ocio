@@ -9,6 +9,7 @@ class ClientProvider {
   final String _apiKey = "XXXXX";
   final String _url =
       "https://23j9ok8564.execute-api.us-east-1.amazonaws.com/qa/clients";
+  final String _searchByEmailUrl = "/email/";
   final _prefs = new UserPreferences();
 
   Future<Map<String, dynamic>> createClient(Client cl) async {
@@ -24,6 +25,19 @@ class ClientProvider {
       return {'ok': true, 'clientId': cl.idNumber};
     } else {
       return {'ok': false, 'message': 'Errorrrr'};
+    }
+  }
+
+  Future<Map<String, dynamic>> getClientBymail(String email) async {
+    print('va a getClientBymail');
+    final httpResp = await http.get(
+      '$_url$_searchByEmailUrl$email',
+    );
+    print('response ${httpResp.statusCode}');
+    if (httpResp.statusCode == 200) {
+      return {'ok': true, 'exists': true};
+    } else {
+      return {'ok': false, 'exists': false, 'mensaje': 'Error tecnico'};
     }
   }
 

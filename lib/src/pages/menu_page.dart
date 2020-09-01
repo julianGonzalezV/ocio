@@ -67,7 +67,7 @@ class MenuPage extends StatelessWidget {
       BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'pizza');
+        Navigator.pushNamed(context, 'itemSummary');
       },
       child: Column(
         children: <Widget>[
