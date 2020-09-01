@@ -12,6 +12,11 @@ class ItemSummaryPage extends StatelessWidget {
             _itemImage(),
             _itemShortDescription(),
             _itemActions(),
+            FlatButton(
+              child: Text('Pagar'),
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, 'payment'),
+            ),
             _itemDescription(),
             _itemDescription(),
             _itemDescription(),
