@@ -3,9 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:ocio/src/delegate/searh_delegate.dart';
-import 'package:ocio/src/model/item.dart';
 import 'package:ocio/src/providers/item_provider.dart';
-import 'package:ocio/src/util/icon_str.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);

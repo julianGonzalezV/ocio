@@ -70,7 +70,7 @@ class DataSearch extends SearchDelegate {
                           onTap: () {
                             // First, the search has to be closed
                             close(context, null);
-                            Navigator.pushNamed(context, 'itemSummary',
+                            Navigator.pushNamed(context, 'itemList',
                                 arguments: elem);
                           },
                         ))
