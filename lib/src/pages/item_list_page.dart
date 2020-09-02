@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:ocio/src/widgets/card_recomendados.dart';
 import 'package:ocio/src/styles/styles.dart';
