@@ -14,8 +14,6 @@ class ItemListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("holaaaaaaaaaaa");
-    print(idProduct);
     final sizeScreen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -236,8 +234,6 @@ class ItemListPage extends StatelessWidget {
   }
 
   List<Widget> _itemList(List<dynamic> listado, BuildContext context) {
-    print("listadooooo");
-    print(listado);
     return listado
         .map((item) => Column(
               children: <Widget>[

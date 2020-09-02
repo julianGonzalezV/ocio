@@ -33,7 +33,6 @@ class ItemProvider {
 
     final loadResponse = await rootBundle.loadString('data/items.json');
     Map dataMap = json.decode(loadResponse);
-    print('Map $dataMap');
     List<dynamic> result = dataMap['items'];
     List<dynamic> result2 = result
         .where((element) => element['title']
@@ -45,12 +44,16 @@ class ItemProvider {
   }
 
   Future<List<dynamic>> findItemsForBusiness(int id) async {
-    print("llego parametro");
-    print(id);
+    List lista = new List();
     final loadResponse = await rootBundle.loadString('data/products.json');
     Map dataMap = json.decode(loadResponse);
     print(dataMap);
-    return dataMap['products'];
+    for (var element in dataMap['products']) {
+      if (element['id_item'] == id) {
+        lista.add(element);
+      }
+    }
+    return lista;
   }
 }
 
