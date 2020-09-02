@@ -8,12 +8,36 @@ import 'package:ocio/src/widgets/app_bar.dart';
 import 'package:ocio/src/providers/item_provider.dart';
 
 class ItemListPage extends StatelessWidget {
+  final int idProduct;
   String url = "https://jsonplaceholder.typicode.com/users/1/todos";
+
+  ItemListPage(this.idProduct);
 
   @override
   Widget build(BuildContext context) {
+    print("holaaaaaaaaaaa");
+    print(idProduct);
     final sizeScreen = MediaQuery.of(context).size;
-    return Container(
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text('Selecciona el plato que deseas'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Scaffold(
+        body: Stack(
+          children: <Widget>[
+            _items(idProduct),
+          ],
+        ),
+      ),
+    );
+    /*return Container(
         child: Scaffold(
       body: SafeArea(
           child: Padding(
@@ -30,11 +54,12 @@ class ItemListPage extends StatelessWidget {
               height: 5.0,
             ),
             _menuContainer(context),
-            _gridRecomendados(context)
+            _gridRecomendados(context),
+            //items()
           ],
         ),
       )),
-    ));
+    ));*/
   }
 
   Widget _gridRecomendados(BuildContext context) {
@@ -199,9 +224,9 @@ class ItemListPage extends StatelessWidget {
     );
   }
 
-  Widget _items() {
+  Widget _items(int id) {
     return FutureBuilder(
-      future: itemProvider.findItem(""),
+      future: itemProvider.findItemsForBusiness(id),
       initialData: [],
       builder: (context, snapshot) {
         return ListView(
@@ -212,12 +237,14 @@ class ItemListPage extends StatelessWidget {
   }
 
   List<Widget> _itemList(List<dynamic> listado, BuildContext context) {
+    print("listadooooo");
+    print(listado);
     return listado
         .map((item) => Column(
               children: <Widget>[
                 ListTile(
                   title: Text(item['title']),
-                  subtitle: Text(item['type']),
+                  subtitle: Text(item['price'].toString()),
                   leading: Image(
                     width: 100.0,
                     height: 100.0,
@@ -225,7 +252,7 @@ class ItemListPage extends StatelessWidget {
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.pushNamed(context, 'itemList');
+                    //Navigator.pushNamed(context, 'itemList');
                   },
                 ),
                 Divider()

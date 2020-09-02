@@ -17,7 +17,7 @@ Map<String, WidgetBuilder> appRoutes() {
     'createUser': (BuildContext context) => CreateUserPage(),
     'createClient': (BuildContext context) => CreateClientPage(),
     'itemSummary': (BuildContext context) => ItemSummaryPage(),
-    'itemList': (BuildContext context) => ItemListPage(),
+    //'itemList': (BuildContext context) => ItemListPage(),
     'menu': (BuildContext context) => MenuPage(),
   };
 }

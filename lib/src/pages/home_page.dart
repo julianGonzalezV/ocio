@@ -6,6 +6,8 @@ import 'package:ocio/src/model/item.dart';
 import 'package:ocio/src/providers/item_provider.dart';
 import 'package:ocio/src/util/icon_str.dart';
 
+import 'item_list_page.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
 
@@ -109,7 +111,10 @@ class HomePage extends StatelessWidget {
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.pushNamed(context, 'itemList');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ItemListPage(item['id'])));
                   },
                 ),
                 Divider()

@@ -21,17 +21,17 @@ class ItemProvider {
 
     final loadResponse = await rootBundle.loadString('data/items.json');
     Map dataMap = json.decode(loadResponse);
-    print('Map $dataMap');
+    //print('Map $dataMap');
     return dataMap['items'];
   }
 
-  Future<Object> findItemsForBusiness(String id) async {
-    print('va a mostrar productos');
-    final httpResp = await http.get(
-      '$_urlTest$id$_searchByBusiness',
-    );
-    print(httpResp);
-    return httpResp;
+  Future<List<dynamic>> findItemsForBusiness(int id) async {
+    print("llego parametro");
+    print(id);
+    final loadResponse = await rootBundle.loadString('data/products.json');
+    Map dataMap = json.decode(loadResponse);
+    print(dataMap);
+    return dataMap['products'];
   }
 }
 
