@@ -1,8 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class PaymentPage extends StatelessWidget {
-  const PaymentPage({Key key}) : super(key: key);
+class PaymentPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => PaymentState();
+}
+
+class PaymentState extends State<PaymentPage> {
+  int _paySelected = 0;
+
+  void _paymentOptionsHandler(int selectedValue) {
+    print('selectedValue => ${selectedValue}');
+    setState(() {
+      _paySelected = selectedValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +116,6 @@ class PaymentPage extends StatelessWidget {
   }
 
   Widget _paymentOptions() {
-    int _value = 0;
     return Column(
       children: <Widget>[
         SizedBox(
@@ -123,21 +134,27 @@ class PaymentPage extends StatelessWidget {
         ),
         RadioListTile(
           title: Text('Efectivo'),
-          value: null,
-          groupValue: null,
-          onChanged: null,
+          subtitle: Text('Lo pagas una vez lo recibas'),
+          value: 0,
+          groupValue: _paySelected,
+          onChanged: _paymentOptionsHandler,
+          activeColor: Colors.deepPurpleAccent,
         ),
         RadioListTile(
           title: Text('Qr'),
-          value: null,
-          groupValue: null,
-          onChanged: null,
+          subtitle: Text('Lo pagas por tu app bancolombia'),
+          value: 1,
+          groupValue: _paySelected,
+          onChanged: _paymentOptionsHandler,
+          activeColor: Colors.deepPurpleAccent,
         ),
         RadioListTile(
           title: Text('Datáfono'),
-          value: null,
-          groupValue: null,
-          onChanged: null,
+          subtitle: Text('Te llevamos el datáfono, ten lista tu tarjeta'),
+          value: 2,
+          groupValue: _paySelected,
+          onChanged: _paymentOptionsHandler,
+          activeColor: Colors.deepPurpleAccent,
         ),
       ],
     );
