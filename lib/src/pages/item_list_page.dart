@@ -247,7 +247,7 @@ class ItemListPage extends StatelessWidget {
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    //Navigator.pushNamed(context, 'itemList');
+                    Navigator.pushNamed(context, 'itemSummary');
                   },
                 ),
                 Divider()
