@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ocio/src/model/product.dart';
 
 class ItemSummaryPage extends StatelessWidget {
+  final Product product;
   final titleStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
   final subTitleStyle = TextStyle(fontSize: 15.0, color: Colors.grey);
+
+  ItemSummaryPage(this.product) {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

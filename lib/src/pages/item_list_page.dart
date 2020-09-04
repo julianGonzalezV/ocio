@@ -6,6 +6,8 @@ import 'package:ocio/src/styles/styles.dart';
 import 'package:ocio/src/widgets/app_bar.dart';
 import 'package:ocio/src/providers/item_provider.dart';
 
+import 'item_summary_page.dart';
+
 class ItemListPage extends StatelessWidget {
   final int idProduct;
   String url = "https://jsonplaceholder.typicode.com/users/1/todos";
@@ -247,7 +249,10 @@ class ItemListPage extends StatelessWidget {
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
-                    Navigator.pushNamed(context, 'itemSummary');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ItemSummaryPage(item)));
                   },
                 ),
                 Divider()
