@@ -4,7 +4,44 @@
             "id_item":1,
             "title": "Ejecutivo",
             "image": "https://static4.depositphotos.com/1005091/293/i/450/depositphotos_2939996-stock-photo-cartoon-chef-logo-with-banner.jpg",
-            "price": 12000
+            "price": 12000,
+            "listItemIngredients":[{
+                "id":1,
+                "name":"sopas",
+                "listItemIngredients":[
+                    {"id":1,"name":"Sopa pastas"},
+                    {"id":2,"name":"Sopa de platano"},
+                    {"id":3,"name":"Sancocho"}
+                ]
+            },
+            {
+                "id":2,
+                "name":"Principios",
+                "listItemIngredients":[
+                    {"id":4,"name":"Verdura"},
+                    {"id":5,"name":"Papa francesa"},
+                    {"id":6,"name":"frijoles"}
+                ]
+            },
+            {
+                "id":3,
+                "name":"Carnes",
+                "listItemIngredients":[
+                    {"id":7,"name":"Res asada"},
+                    {"id":8,"name":"Pollo sudado"},
+                    {"id":9,"name":"Chuleta de cerdo"}
+                ]
+            },
+            {
+                "id":4,
+                "name":"Sobremesas",
+                "listItemIngredients":[
+                    {"id":10,"name":"Guandolo"},
+                    {"id":11,"name":"jugo mora"},
+                    {"id":12,"name":"Mazamorra"}
+                ]
+
+            }]
         },
         {
             "id":2,
