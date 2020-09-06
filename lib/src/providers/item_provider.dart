@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:ocio/src/model/%20ingredient.dart';
+import 'package:ocio/src/model/%20itemIngredient.dart';
+import 'package:ocio/src/model/product.dart';
 
 class ItemProvider {
   final String _apiKey = "";
@@ -18,7 +21,7 @@ class ItemProvider {
 
     final loadResponse = await rootBundle.loadString('data/items.json');
     Map dataMap = json.decode(loadResponse);
-    print('Map $dataMap');
+    //print('Map $dataMap');
     return dataMap['items'];
   }
 
@@ -43,16 +46,38 @@ class ItemProvider {
     return result2;
   }
 
-  Future<List<dynamic>> findItemsForBusiness(int id) async {
-    List lista = new List();
+  Future<List<Product>> findItemsForBusiness(int id) async {
+    List<Product> lista = new List();
+    List<Ingredient> ingreList = new List();
+    List<ItemIngredient> ingreitemList = new List();
     final loadResponse = await rootBundle.loadString('data/products.json');
     Map dataMap = json.decode(loadResponse);
     print(dataMap);
     for (var element in dataMap['products']) {
       if (element['id_item'] == id) {
-        lista.add(element);
+        ingreList = new List();
+        if (element['listItemIngredients'] != null) {
+          ingreList = new List();
+          for (var elem in element['listItemIngredients']) {
+            ingreitemList = new List();
+            for (var item in elem['listItemIngredients']) {
+              ItemIngredient itemIngre =
+                  new ItemIngredient(item['id'], item['name']);
+              ingreitemList.add(itemIngre);
+            }
+
+            Ingredient ingre =
+                new Ingredient(elem['id'], elem['name'], ingreitemList);
+            ingreList.add(ingre);
+          }
+        }
+
+        Product product = new Product(element['id'], element['id_item'],
+            element['title'], element['image'], element['price'], ingreList);
+        lista.add(product);
       }
     }
+    print(lista.length);
     return lista;
   }
 }

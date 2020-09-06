@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:ocio/src/model/product.dart';
 
 import 'package:ocio/src/widgets/card_recomendados.dart';
 import 'package:ocio/src/styles/styles.dart';
@@ -235,17 +236,17 @@ class ItemListPage extends StatelessWidget {
     );
   }
 
-  List<Widget> _itemList(List<dynamic> listado, BuildContext context) {
+  List<Widget> _itemList(List<Product> listado, BuildContext context) {
     return listado
         .map((item) => Column(
               children: <Widget>[
                 ListTile(
-                  title: Text(item['title']),
-                  subtitle: Text(item['price'].toString()),
+                  title: Text(item.title),
+                  subtitle: Text(item.price.toString()),
                   leading: Image(
                     width: 100.0,
                     height: 100.0,
-                    image: NetworkImage(item['image']),
+                    image: NetworkImage(item.image),
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
