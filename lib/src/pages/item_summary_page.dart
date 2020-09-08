@@ -115,13 +115,11 @@ class ItemSummaryPage extends StatelessWidget {
   }
 
   Widget _button() {
-    return new Column(children: <Widget>[
-      new MaterialButton(
-          child: Icon(Icons.do_not_disturb_on),
-          elevation: 50.0,
+    return Column(children: <Widget>[
+      IconButton(
+          icon: Icon(Icons.do_not_disturb_on),
+          iconSize: 40.0,
           color: Colors.purple,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
           onPressed: () {})
     ]);
   }
