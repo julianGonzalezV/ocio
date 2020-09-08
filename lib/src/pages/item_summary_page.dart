@@ -13,29 +13,24 @@ class ItemSummaryPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            _itemImage(),
+            _itemImage(product.image),
             _itemShortDescription(),
+            _accountantItem(),
             _itemActions(),
             _itemDescription(),
             _itemDescription(),
             _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
+            _itemDescription()
           ],
         ),
       ),
     );
   }
 
-  Widget _itemImage() {
+  Widget _itemImage(String image) {
     return Container(
       width: double.infinity,
-      child: Image(
-          image: NetworkImage(
-              'https://www.elespectador.com/resizer/_gaN1rDW8MW555mRoWf4X8PR9W4=/657x0/arc-anglerfish-arc2-prod-elespectador.s3.amazonaws.com/public/KC735CGJGJCZVNLPY4L2I4K5RA.jpg')),
+      child: Image(image: NetworkImage(image)),
     );
   }
 
@@ -106,5 +101,28 @@ class ItemSummaryPage extends StatelessWidget {
           'blalalablalalablalalablalalablalalablalalablalblalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalaalablalala',
           textAlign: TextAlign.justify,
         ));
+  }
+
+  Widget _accountantItem() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        _button(),
+        Column(children: <Widget>[Text("1")]),
+        _button()
+      ],
+    );
+  }
+
+  Widget _button() {
+    return new Column(children: <Widget>[
+      new MaterialButton(
+          child: Icon(Icons.do_not_disturb_on),
+          elevation: 50.0,
+          color: Colors.purple,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(60.0)),
+          onPressed: () {})
+    ]);
   }
 }

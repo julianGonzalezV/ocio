@@ -52,7 +52,6 @@ class ItemProvider {
     List<ItemIngredient> ingreitemList = new List();
     final loadResponse = await rootBundle.loadString('data/products.json');
     Map dataMap = json.decode(loadResponse);
-    print(dataMap);
     for (var element in dataMap['products']) {
       if (element['id_item'] == id) {
         ingreList = new List();
@@ -77,7 +76,6 @@ class ItemProvider {
         lista.add(product);
       }
     }
-    print(lista.length);
     return lista;
   }
 }

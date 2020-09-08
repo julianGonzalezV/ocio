@@ -11,13 +11,13 @@ import 'item_summary_page.dart';
 
 class ItemListPage extends StatelessWidget {
   final int idProduct;
-  String url = "https://jsonplaceholder.typicode.com/users/1/todos";
+  //String url = "https://jsonplaceholder.typicode.com/users/1/todos";
 
   ItemListPage(this.idProduct);
 
   @override
   Widget build(BuildContext context) {
-    final sizeScreen = MediaQuery.of(context).size;
+    //final sizeScreen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -62,7 +62,7 @@ class ItemListPage extends StatelessWidget {
     ));*/
   }
 
-  Widget _gridRecomendados(BuildContext context) {
+  /* Widget _gridRecomendados(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -78,9 +78,9 @@ class ItemListPage extends StatelessWidget {
             child: _menuCard('Double Pizza', 'assets/imgs/pizza3.jpg', -28.0)),
       ],
     );
-  }
+  }*/
 
-  Widget _menuCard(String textoEncabezdo, String ruta, double positionLeft) {
+  /*Widget _menuCard(String textoEncabezdo, String ruta, double positionLeft) {
     return Column(
       children: <Widget>[
         Container(
@@ -112,9 +112,9 @@ class ItemListPage extends StatelessWidget {
             )),
       ],
     );
-  }
+  }*/
 
-  Widget _recomendados() {
+  /*Widget _recomendados() {
     return Row(
       children: <Widget>[
         _recomendacion(),
@@ -131,9 +131,9 @@ class ItemListPage extends StatelessWidget {
             ))
       ],
     );
-  }
+  }*/
 
-  Widget _recomendacion() {
+  /* Widget _recomendacion() {
     return Column(
       children: <Widget>[
         Transform.translate(
@@ -156,9 +156,9 @@ class ItemListPage extends StatelessWidget {
             ))
       ],
     );
-  }
+  }*/
 
-  Widget _swiperRecomendados(Size sizeScreen) {
+  /* Widget _swiperRecomendados(Size sizeScreen) {
     return Container(
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
@@ -197,9 +197,9 @@ class ItemListPage extends StatelessWidget {
             ))
       ],
     );
-  }
+  }*/
 
-  Widget _menuText() {
+  /*Widget _menuText() {
     return Column(
       children: <Widget>[
         Transform.translate(
@@ -222,7 +222,7 @@ class ItemListPage extends StatelessWidget {
             ))
       ],
     );
-  }
+  }*/
 
   Widget _items(int id) {
     return FutureBuilder(
