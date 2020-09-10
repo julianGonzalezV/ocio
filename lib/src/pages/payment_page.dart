@@ -142,7 +142,8 @@ class PaymentState extends State<PaymentPage> {
         ),
         RadioListTile(
           title: Text('Qr'),
-          subtitle: Text('Lo pagas por tu app bancolombia'),
+          subtitle: Text(
+              'Lo pagas por tu app bancolombia,\nel mensajero te lleva el código para asegurar la compra'),
           value: 1,
           groupValue: _paySelected,
           onChanged: _paymentOptionsHandler,
