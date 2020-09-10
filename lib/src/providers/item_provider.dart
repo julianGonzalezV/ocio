@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:ocio/src/model/%20ingredient.dart';
-import 'package:ocio/src/model/%20itemIngredient.dart';
+import 'package:ocio/src/model/ingredient.dart';
+import 'package:ocio/src/model/itemIngredient.dart';
 import 'package:ocio/src/model/product.dart';
 
 class ItemProvider {

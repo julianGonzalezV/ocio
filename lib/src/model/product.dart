@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ocio/src/model/ ingredient.dart';
+import 'package:ocio/src/model/ingredient.dart';
 
 @immutable
 class Product {
