@@ -3,6 +3,7 @@ import 'package:ocio/src/model/product.dart';
 
 class ItemSummaryPage extends StatelessWidget {
   final Product product;
+  int _amountProduct = 1;
   final titleStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
   final subTitleStyle = TextStyle(fontSize: 15.0, color: Colors.grey);
 
@@ -14,9 +15,9 @@ class ItemSummaryPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             _itemImage(product.image),
-            _itemShortDescription(),
-            _accountantItem(),
-            _itemActions(),
+            _itemShortDescription(product.title),
+            _accountantItem(context, product.price),
+            //_itemActions(),
             _itemDescription(),
             _itemDescription(),
             _itemDescription(),
@@ -34,7 +35,7 @@ class ItemSummaryPage extends StatelessWidget {
     );
   }
 
-  Widget _itemShortDescription() {
+  Widget _itemShortDescription(String name) {
     return SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
@@ -45,15 +46,11 @@ class ItemSummaryPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Chuleta valluna',
+                    name,
                     style: titleStyle,
                   ),
                   SizedBox(
                     height: 10.0,
-                  ),
-                  Text(
-                    'Delicioso plato valluno en el cual ...',
-                    style: subTitleStyle,
                   )
                 ],
               ),
@@ -103,24 +100,55 @@ class ItemSummaryPage extends StatelessWidget {
         ));
   }
 
-  Widget _accountantItem() {
+  Widget _accountantItem(BuildContext context, int priceProducto) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        _button(),
-        Column(children: <Widget>[Text("1")]),
-        _button()
+        Column(
+          children: [
+            Text(
+              '\u0024 $priceProducto',
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple),
+            )
+          ],
+        ),
+        _button(context, Icons.add_circle, changeAmountProduct, "+"),
+        Column(children: <Widget>[
+          Text(
+            '$_amountProduct',
+            style: TextStyle(fontSize: 20),
+          )
+        ]),
+        _button(context, Icons.do_not_disturb_on, changeAmountProduct, "-")
       ],
     );
   }
 
-  Widget _button() {
+  Widget _button(
+      BuildContext context, IconData icon, Function function, String param) {
     return Column(children: <Widget>[
       IconButton(
-          icon: Icon(Icons.do_not_disturb_on),
+          icon: Icon(icon),
           iconSize: 40.0,
           color: Colors.purple,
-          onPressed: () {})
+          onPressed: () {
+            function(context, param);
+          })
     ]);
+  }
+
+  void changeAmountProduct(BuildContext context, String param) {
+    print(_amountProduct);
+    print(param);
+    if (_amountProduct <= 20 && _amountProduct >= 0) {
+      if (param == "+") {
+        _amountProduct++;
+      } else {
+        _amountProduct--;
+      }
+    }
   }
 }
