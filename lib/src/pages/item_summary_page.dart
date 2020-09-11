@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:ocio/src/model/product.dart';
 
-class ItemSummaryPage extends StatelessWidget {
+class ItemSummaryPage extends StatefulWidget {
   final Product product;
-  int _amountProduct = 1;
-  final titleStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
-  final subTitleStyle = TextStyle(fontSize: 15.0, color: Colors.grey);
 
   ItemSummaryPage(this.product) {}
+
+  @override
+  _ItemSummaryPageState createState() => _ItemSummaryPageState();
+}
+
+class _ItemSummaryPageState extends State<ItemSummaryPage> {
+  int _amountProduct = 1;
+
+  final titleStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
+
+  final subTitleStyle = TextStyle(fontSize: 15.0, color: Colors.grey);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            _itemImage(product.image),
-            _itemShortDescription(product.title),
-            _accountantItem(context, product.price),
+            _itemImage(widget.product.image),
+            _itemShortDescription(widget.product.title),
+            _accountantItem(context, widget.product.price),
             //_itemActions(),
             _itemDescription(),
             _itemDescription(),
@@ -141,14 +150,22 @@ class ItemSummaryPage extends StatelessWidget {
   }
 
   void changeAmountProduct(BuildContext context, String param) {
-    print(_amountProduct);
-    print(param);
-    if (_amountProduct <= 20 && _amountProduct >= 0) {
-      if (param == "+") {
-        _amountProduct++;
-      } else {
-        _amountProduct--;
-      }
+    if (_amountProduct <= 20 && _amountProduct >= 1) {
+      setState(() {
+        if (param == '+') {
+          if (_amountProduct == 20) {
+            _amountProduct = 20;
+          } else {
+            _amountProduct++;
+          }
+        } else {
+          if (_amountProduct == 1) {
+            _amountProduct = 1;
+          } else {
+            _amountProduct--;
+          }
+        }
+      });
     }
   }
 }
