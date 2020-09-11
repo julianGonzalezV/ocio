@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ocio/src/model/product.dart';
+import 'package:ocio/src/widgets/buttons.dart';
 
 class ItemSummaryPage extends StatefulWidget {
   final Product product;
@@ -134,32 +135,19 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
             )
           ],
         ),
-        _button(context, Icons.add_circle, changeAmountProduct, "+"),
+        button(Icons.add_circle, changeAmountProduct, "+"),
         Column(children: <Widget>[
           Text(
             '$_amountProduct',
             style: TextStyle(fontSize: 20),
           )
         ]),
-        _button(context, Icons.do_not_disturb_on, changeAmountProduct, "-")
+        button(Icons.do_not_disturb_on, changeAmountProduct, "-")
       ],
     );
   }
 
-  Widget _button(
-      BuildContext context, IconData icon, Function function, String param) {
-    return Column(children: <Widget>[
-      IconButton(
-          icon: Icon(icon),
-          iconSize: 40.0,
-          color: Colors.purple,
-          onPressed: () {
-            function(context, param);
-          })
-    ]);
-  }
-
-  void changeAmountProduct(BuildContext context, String param) {
+  void changeAmountProduct(String param) {
     if (_amountProduct <= 20 && _amountProduct >= 1) {
       setState(() {
         if (param == '+') {
