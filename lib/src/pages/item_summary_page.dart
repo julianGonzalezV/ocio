@@ -27,6 +27,16 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
             _itemShortDescription(widget.product.title),
             _accountantItem(context, widget.product.price),
             //_itemActions(),
+            FlatButton(
+              child: Text('Pagar'),
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, 'payment'),
+            ),
+            _itemDescription(),
+            _itemDescription(),
+            _itemDescription(),
+            _itemDescription(),
+            _itemDescription(),
             _itemDescription(),
             _itemDescription(),
             _itemDescription(),

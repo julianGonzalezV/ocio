@@ -6,6 +6,7 @@ import 'package:ocio/src/pages/item_list_page.dart';
 import 'package:ocio/src/pages/item_summary_page.dart';
 import 'package:ocio/src/pages/login_page.dart';
 import 'package:ocio/src/pages/menu_page.dart';
+import 'package:ocio/src/pages/payment_page.dart';
 import 'package:ocio/src/pages/welcome_page.dart';
 
 Map<String, WidgetBuilder> appRoutes() {
@@ -19,5 +20,7 @@ Map<String, WidgetBuilder> appRoutes() {
     //'itemSummary': (BuildContext context) => ItemSummaryPage(),
     //'itemList': (BuildContext context) => ItemListPage(),
     'menu': (BuildContext context) => MenuPage(),
+    //'itemSummary': (BuildContext context) => ItemSummaryPage(),
+    'payment': (BuildContext context) => PaymentPage(),
   };
 }
