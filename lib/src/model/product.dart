@@ -7,7 +7,7 @@ class Product {
   final int id_item;
   final String title;
   final String image;
-  final int price;
+  final double price;
   final List<Ingredient> listItemIngredients;
 
   Product(this.id, this.id_item, this.title, this.image, this.price,

@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:ocio/src/model/product.dart';
 import 'package:ocio/src/widgets/buttons.dart';
@@ -13,6 +15,8 @@ class ItemSummaryPage extends StatefulWidget {
 
 class _ItemSummaryPageState extends State<ItemSummaryPage> {
   int _amountProduct = 1;
+  double _totalPriceProduct = 0;
+  String _descriptionOrder = '';
 
   final titleStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
 
@@ -20,26 +24,21 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
 
   @override
   Widget build(BuildContext context) {
+    //_totalPriceProduct = widget.product.price;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             _itemImage(widget.product.image),
             _itemShortDescription(widget.product.title),
-            _accountantItem(context, widget.product.price),
-            //_itemActions(),
+            _accountantItem(widget.product.price),
+            _createTextArea('Notas', 4),
+            _createTotal(),
             FlatButton(
               child: Text('Pagar'),
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'payment'),
             ),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
-            _itemDescription(),
             _itemDescription(),
             _itemDescription()
           ],
@@ -120,7 +119,7 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
         ));
   }
 
-  Widget _accountantItem(BuildContext context, int priceProducto) {
+  Widget _accountantItem(double priceProducto) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -153,6 +152,7 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
         if (param == '+') {
           if (_amountProduct == 20) {
             _amountProduct = 20;
+            _totalPriceProduct = widget.product.price * _amountProduct;
           } else {
             _amountProduct++;
           }
@@ -163,7 +163,51 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
             _amountProduct--;
           }
         }
+        _totalPriceProduct = widget.product.price * _amountProduct;
       });
     }
+  }
+
+  Widget _createTextArea(String label, int maxlines) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+        child: TextField(
+          maxLines: maxlines,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: InputDecoration(
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+              labelText: label),
+          onChanged: (valor) {
+            setState(() {
+              // _descriptionOrder = valor;
+            });
+          },
+        ));
+  }
+
+  Widget _createTotal() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Column(
+          children: [
+            Text(
+              'Total',
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.purple),
+            )
+          ],
+        ),
+        Column(children: <Widget>[
+          Text(
+            '\u0024 $_totalPriceProduct',
+            style: TextStyle(fontSize: 20),
+          )
+        ]),
+      ],
+    );
   }
 }
