@@ -39,8 +39,6 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'payment'),
             ),
-            _itemDescription(),
-            _itemDescription()
           ],
         ),
       ),
