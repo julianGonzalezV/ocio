@@ -34,11 +34,14 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
             _accountantItem(widget.product.price),
             _createTextArea('Notas', 4),
             _createTotal(),
-            FlatButton(
+            Divider(),
+            _buttonAdd(),
+            /*FlatButton(
               child: Text('Pagar'),
+              color: Colors.red,
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'payment'),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -132,14 +135,14 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
             )
           ],
         ),
-        button(Icons.add_circle, changeAmountProduct, "+"),
+        buttonIcon(Icons.add_circle, changeAmountProduct, "+"),
         Column(children: <Widget>[
           Text(
             '$_amountProduct',
             style: TextStyle(fontSize: 20),
           )
         ]),
-        button(Icons.do_not_disturb_on, changeAmountProduct, "-")
+        buttonIcon(Icons.do_not_disturb_on, changeAmountProduct, "-")
       ],
     );
   }
@@ -207,5 +210,19 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
         ]),
       ],
     );
+  }
+
+  Widget _buttonAdd() {
+    return FlatButton(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 130.0, vertical: 10.0),
+          child: Text('Agregar'),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        color: Colors.deepPurple,
+        textColor: Colors.white,
+        onPressed: () => {});
   }
 }

@@ -110,7 +110,7 @@ class HomePage extends StatelessWidget {
                     height: 100.0,
                     image: NetworkImage(item['image']),
                   ),
-                  trailing: Icon(Icons.keyboard_arrow_right),
+                  //trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
                     Navigator.push(
                         context,

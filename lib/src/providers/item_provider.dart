@@ -71,8 +71,13 @@ class ItemProvider {
           }
         }
 
-        Product product = new Product(element['id'], element['id_item'],
-            element['title'], element['image'], element['price'], ingreList);
+        Product product = new Product(
+            element['id'],
+            element['id_item'],
+            element['title'],
+            element['image'],
+            element['price'].toDouble(),
+            ingreList);
         lista.add(product);
       }
     }
