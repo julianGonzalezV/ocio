@@ -223,6 +223,8 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
         ),
         color: Colors.deepPurple,
         textColor: Colors.white,
-        onPressed: () => {});
+        onPressed: addProducts);
   }
+
+  void addProducts() {}
 }
