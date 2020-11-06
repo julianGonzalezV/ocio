@@ -103,14 +103,14 @@ class HomePage extends StatelessWidget {
         .map((item) => Column(
               children: <Widget>[
                 ListTile(
-                  title: Text(item['title']),
-                  subtitle: Text(item['type']),
+                  title: Text(item['name']),
+                  subtitle: Text(item['description']),
                   leading: Image(
                     width: 100.0,
                     height: 100.0,
                     image: NetworkImage(item['image']),
                   ),
-                  //trailing: Icon(Icons.keyboard_arrow_right),
+                  trailing: Icon(Icons.keyboard_arrow_right),
                   onTap: () {
                     Navigator.push(
                         context,

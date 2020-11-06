@@ -7,46 +7,48 @@ import 'package:ocio/src/model/itemIngredient.dart';
 import 'package:ocio/src/model/product.dart';
 
 class ItemProvider {
-  final String _apiKey = "";
-  final String _url =
-      "https://23j9ok8564.execute-api.us-east-1.amazonaws.com/qa/clients";
-  final String _searchByEmailUrl = "/email/";
-  final String _searchAllUrl = "items/all";
+  final String _urlBase =
+      "https://deq4aub58g.execute-api.us-east-1.amazonaws.com/qa";
+  final String _searchAllBusiness = "/businesses";
+  final String _searchAllBusinessProducts = "/business";
+  final String _searchProducts = "/products";
+  final String _registerOrder = "/order";
 
   Future<List<dynamic>> findAllItems() async {
-    print('va a getClientBymail');
     final httpResp = await http.get(
-      '$_url$_searchAllUrl',
+      '$_urlBase$_searchAllBusiness',
     );
-
-    final loadResponse = await rootBundle.loadString('data/items.json');
-    Map dataMap = json.decode(loadResponse);
-    //print('Map $dataMap');
-    return dataMap['items'];
+    List<dynamic> response = json.decode(httpResp.body) as List;
+    return response;
   }
 
-  final String _urlTest = "https://jsonplaceholder.typicode.com/albums/";
-  final String _searchByBusiness = "/photos";
-
-  Future<List<dynamic>> findItem(String query) async {
-    print('va a getClientBymail');
+  Future<List<dynamic>> findItemsForIdBusiness(String id) async {
     final httpResp = await http.get(
-      '$_url$_searchByEmailUrl$query',
+      '$_urlBase$_searchProducts$_searchAllBusinessProducts/$id',
     );
-
-    final loadResponse = await rootBundle.loadString('data/items.json');
-    Map dataMap = json.decode(loadResponse);
-    List<dynamic> result = dataMap['items'];
-    List<dynamic> result2 = result
-        .where((element) => element['title']
-            .toString()
-            .toLowerCase()
-            .startsWith(query.toLowerCase()))
-        .toList();
-    return result2;
+    List<dynamic> response = json.decode(httpResp.body) as List<dynamic>;
+    return response;
   }
 
-  Future<List<Product>> findItemsForBusiness(int id) async {
+  Future<List<Product>> findItemsProducto(String id) async {
+    final httpResp = await http.get(
+      '$_urlBase$_searchProducts/$id',
+    );
+    print(httpResp.body);
+    List<dynamic> response = json.decode(httpResp.body) as List;
+    return response;
+  }
+
+  Future<List<Product>> registerOrder(String id) async {
+    final httpResp = await http.get(
+      '$_urlBase$_registerOrder',
+    );
+    List<dynamic> response = json.decode(httpResp.body) as List;
+    return response;
+  }
+
+  Future<List<Product>> findItemsForBusiness(String id) async {
+    print(id);
     List<Product> lista = new List();
     List<Ingredient> ingreList = new List();
     List<ItemIngredient> ingreitemList = new List();

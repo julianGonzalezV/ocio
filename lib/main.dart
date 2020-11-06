@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ocio/bloc/order/order_bloc.dart';
+import 'package:ocio/src/bloc/provider.dart';
 import 'package:ocio/src/preferences/user_preferences.dart';
 import 'package:ocio/src/routes/routes.dart';
 
@@ -15,8 +16,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => OrderBloc())],
+    return Provider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: [
