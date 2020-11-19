@@ -13,6 +13,14 @@ class ItemProvider {
   final String _searchAllBusinessProducts = "/business";
   final String _searchProducts = "/products";
   final String _registerOrder = "/order";
+  final String _searchByEmailUrl = "/email/";
+
+  Future<List<dynamic>> findItem(String query) async {
+    print('va a getClientBymail');
+    final httpResp = await http.get(
+      '$_urlBase$_searchByEmailUrl$query',
+    );
+  }
 
   Future<List<dynamic>> findAllItems() async {
     final httpResp = await http.get(
@@ -30,12 +38,17 @@ class ItemProvider {
     return response;
   }
 
-  Future<List<Product>> findItemsProducto(String id) async {
+  Future<dynamic> findItemsProduct(String id) async {
+    print("entreee metodoooos");
     final httpResp = await http.get(
       '$_urlBase$_searchProducts/$id',
     );
+    print("descip productosss");
+    print('$_urlBase$_searchProducts/$id');
     print(httpResp.body);
-    List<dynamic> response = json.decode(httpResp.body) as List;
+    print("despuesssss");
+    print(json.decode(httpResp.body));
+    dynamic response = json.decode(httpResp.body) as dynamic;
     return response;
   }
 

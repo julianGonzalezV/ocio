@@ -1,13 +1,13 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:ocio/src/model/product.dart';
+import 'package:ocio/src/providers/item_provider.dart';
 import 'package:ocio/src/widgets/buttons.dart';
 
 class ItemSummaryPage extends StatefulWidget {
-  final Product product;
+  final String productId;
 
-  ItemSummaryPage(this.product) {}
+  ItemSummaryPage(this.productId) {}
 
   @override
   _ItemSummaryPageState createState() => _ItemSummaryPageState();
@@ -15,11 +15,10 @@ class ItemSummaryPage extends StatefulWidget {
 
 class _ItemSummaryPageState extends State<ItemSummaryPage> {
   int _amountProduct = 1;
+  double _priceProduct = 0;
   double _totalPriceProduct = 0;
   String _descriptionOrder = '';
-
   final titleStyle = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold);
-
   final subTitleStyle = TextStyle(fontSize: 15.0, color: Colors.grey);
 
   @override
@@ -27,24 +26,28 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
     //_totalPriceProduct = widget.product.price;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child: _findIProduct(widget.productId),
+      ),
+    );
+  }
+
+  Widget _findIProduct(String id) {
+    return FutureBuilder(
+      future: itemProvider.findItemsProduct(id),
+      initialData: [],
+      builder: (context, snapshot) {
+        return Column(
           children: <Widget>[
-            _itemImage(widget.product.image),
-            _itemShortDescription(widget.product.title),
-            _accountantItem(widget.product.price),
+            _itemImage(snapshot.data['image']),
+            _itemShortDescription(snapshot.data['name']),
+            _accountantItem(snapshot.data['price'].toDouble()),
             _createTextArea('Notas', 4),
             _createTotal(),
             Divider(),
-            _buttonAdd(),
-            /*FlatButton(
-              child: Text('Pagar'),
-              color: Colors.red,
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, 'payment'),
-            ),*/
+            _buttonAdd()
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -111,16 +114,8 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
     );
   }
 
-  Widget _itemDescription() {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-        child: Text(
-          'blalalablalalablalalablalalablalalablalalablalblalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalablalalaalablalala',
-          textAlign: TextAlign.justify,
-        ));
-  }
-
   Widget _accountantItem(double priceProducto) {
+    _priceProduct = priceProducto;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -153,7 +148,7 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
         if (param == '+') {
           if (_amountProduct == 20) {
             _amountProduct = 20;
-            _totalPriceProduct = widget.product.price * _amountProduct;
+            _totalPriceProduct = _priceProduct * _amountProduct;
           } else {
             _amountProduct++;
           }
@@ -164,7 +159,7 @@ class _ItemSummaryPageState extends State<ItemSummaryPage> {
             _amountProduct--;
           }
         }
-        _totalPriceProduct = widget.product.price * _amountProduct;
+        _totalPriceProduct = _priceProduct * _amountProduct;
       });
     }
   }

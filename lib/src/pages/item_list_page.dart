@@ -59,7 +59,8 @@ class ItemListPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ItemSummaryPage(item)));
+                            builder: (context) =>
+                                ItemSummaryPage(item['sku'])));
                   },
                 ),
                 Divider()
